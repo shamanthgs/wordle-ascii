@@ -13,7 +13,11 @@ function clearScreen() {
 
 function displayGame(game) {
   clearScreen();
-  console.log('🎯 ASCII WORDLE\n');
+  console.log('🎯 ASCII WORDLE');
+  console.log('Guess the 5-letter word. You have 6 attempts.');
+  console.log('Green = Correct letter, correct position');
+  console.log('Yellow = Correct letter, wrong position');
+  console.log('Gray = Letter not in word\n');
 
   displayGameBoard(game);
   console.log('');
@@ -32,52 +36,54 @@ function displayGameBoard(game) {
       for (let col = 0; col < 5; col++) {
         const letter = guess[col];
         const state = result[col];
-        rowDisplay += formatLetter(letter, state) + ' ';
+        rowDisplay += formatLetter(letter, state);
+        if (col < 4) rowDisplay += '  ';
       }
     } else {
       for (let col = 0; col < 5; col++) {
-        rowDisplay += formatLetter(' ', 'empty') + ' ';
+        rowDisplay += formatLetter(' ', 'empty');
+        if (col < 4) rowDisplay += '  ';
       }
+    }
+
+    console.log(rowDisplay);
+    console.log('');
+  }
+}
+
+function displayAlphabet(game) {
+  const qwertyRows = [
+    'QWERTYUIOP',
+    'ASDFGHJKL',
+    'ZXCVBNM'
+  ];
+
+  for (let row of qwertyRows) {
+    let rowDisplay = '';
+
+    for (let i = 0; i < row.length; i++) {
+      const letter = row[i];
+      const state = getLetterState(letter, game);
+      rowDisplay += formatLetter(letter, state);
+      if (i < row.length - 1) rowDisplay += '  ';
     }
 
     console.log(rowDisplay);
   }
 }
 
-function displayAlphabet(game) {
-  console.log('Alphabet Status:');
-
-  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  let alphabetDisplay = '';
-
-  for (let i = 0; i < alphabet.length; i++) {
-    const letter = alphabet[i];
-    const state = getLetterState(letter, game);
-    alphabetDisplay += formatLetter(letter, state) + ' ';
-
-    if ((i + 1) % 13 === 0) {
-      console.log(alphabetDisplay);
-      alphabetDisplay = '';
-    }
-  }
-
-  if (alphabetDisplay) {
-    console.log(alphabetDisplay);
-  }
-}
-
 function formatLetter(letter, state) {
   switch (state) {
     case 'correct':
-      return `${colors.green} ${letter} ${colors.reset}`;
+      return `${colors.green}  ${letter}  ${colors.reset}`;
     case 'present':
-      return `${colors.yellow} ${letter} ${colors.reset}`;
+      return `${colors.yellow}  ${letter}  ${colors.reset}`;
     case 'absent':
-      return `${colors.gray} ${letter} ${colors.reset}`;
+      return `${colors.gray}  ${letter}  ${colors.reset}`;
     case 'empty':
-      return `${colors.white}   ${colors.reset}`;
+      return `${colors.white}     ${colors.reset}`;
     default:
-      return `${colors.dim} ${letter} ${colors.reset}`;
+      return `${colors.dim}  ${letter}  ${colors.reset}`;
   }
 }
 

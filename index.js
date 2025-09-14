@@ -10,12 +10,6 @@ const rl = readline.createInterface({
 });
 
 async function main() {
-  console.log('🎯 Welcome to ASCII Wordle!');
-  console.log('Guess the 5-letter word. You have 6 attempts.');
-  console.log('Green = Correct letter, correct position');
-  console.log('Yellow = Correct letter, wrong position');
-  console.log('Gray = Letter not in word\n');
-
   const game = initializeGame('HELLO');
 
   while (!isGameOver(game)) {
