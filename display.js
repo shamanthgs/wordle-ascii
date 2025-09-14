@@ -13,7 +13,11 @@ function clearScreen() {
 
 function displayGame(game) {
   clearScreen();
-  console.log('🎯 ASCII WORDLE\n');
+  console.log('🎯 ASCII WORDLE');
+  console.log('Guess the 5-letter word. You have 6 attempts.');
+  console.log('Green = Correct letter, correct position');
+  console.log('Yellow = Correct letter, wrong position');
+  console.log('Gray = Letter not in word\n');
 
   displayGameBoard(game);
   console.log('');
@@ -41,6 +45,7 @@ function displayGameBoard(game) {
     }
 
     console.log(rowDisplay);
+    console.log('');
   }
 }
 
