@@ -1,3 +1,5 @@
+import { wordleWords } from './words.js';
+
 function initializeGame(targetWord) {
   return {
     targetWord: targetWord.toUpperCase(),
@@ -7,6 +9,26 @@ function initializeGame(targetWord) {
     won: false,
     lost: false
   };
+}
+
+function getRandomWord() {
+  const randomIndex = Math.floor(Math.random() * wordleWords.length);
+  return wordleWords[randomIndex].toUpperCase();
+}
+
+function getRandomWordExcluding(usedWords = []) {
+  const upperCaseUsed = usedWords.map(word => word.toUpperCase());
+  const availableWords = wordleWords.filter(word =>
+    !upperCaseUsed.includes(word.toUpperCase())
+  );
+
+  if (availableWords.length === 0) {
+    // If all words have been used, reset the pool
+    return getRandomWord();
+  }
+
+  const randomIndex = Math.floor(Math.random() * availableWords.length);
+  return availableWords[randomIndex].toUpperCase();
 }
 
 function makeGuess(game, guess) {
@@ -81,5 +103,7 @@ export {
   makeGuess,
   evaluateGuess,
   isGameOver,
-  getGameStatus
+  getGameStatus,
+  getRandomWord,
+  getRandomWordExcluding
 };

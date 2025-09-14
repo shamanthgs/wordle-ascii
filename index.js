@@ -2,7 +2,7 @@
 
 import readline from 'readline';
 import { displayGame, clearScreen } from './display.js';
-import { initializeGame, makeGuess, isGameOver } from './game.js';
+import { initializeGame, makeGuess, isGameOver, getRandomWordExcluding } from './game.js';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -10,7 +10,25 @@ const rl = readline.createInterface({
 });
 
 async function main() {
-  const game = initializeGame('HELLO');
+  const usedWords = [];
+  let playAgain = true;
+
+  console.log('🎯 Welcome to ASCII Wordle!\n');
+
+  while (playAgain) {
+    await playGame(usedWords);
+    playAgain = await askForReplay();
+  }
+
+  console.log('\n👋 Thanks for playing ASCII Wordle! Goodbye!');
+  rl.close();
+}
+
+async function playGame(usedWords) {
+  const targetWord = getRandomWordExcluding(usedWords);
+  usedWords.push(targetWord);
+
+  const game = initializeGame(targetWord);
 
   while (!isGameOver(game)) {
     displayGame(game);
@@ -28,8 +46,6 @@ async function main() {
   } else {
     console.log(`\n💔 Game over! The word was: ${game.targetWord}`);
   }
-
-  rl.close();
 }
 
 function getGuess() {
@@ -43,6 +59,23 @@ function getGuess() {
         resolve(null);
       } else {
         resolve(answer);
+      }
+    });
+  });
+}
+
+function askForReplay() {
+  return new Promise((resolve) => {
+    rl.question('\n🎮 Would you like to play again? (y/n): ', (answer) => {
+      const response = answer.toLowerCase().trim();
+      if (response === 'y' || response === 'yes') {
+        console.log('\n🎯 Starting a new game with a different word!\n');
+        resolve(true);
+      } else if (response === 'n' || response === 'no') {
+        resolve(false);
+      } else {
+        console.log('❌ Please enter "y" for yes or "n" for no.');
+        resolve(askForReplay());
       }
     });
   });
