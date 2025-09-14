@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const readline = require('readline');
-const { displayGame, clearScreen } = require('./display');
-const { initializeGame, makeGuess, isGameOver } = require('./game');
+import readline from 'readline';
+import { displayGame, clearScreen } from './display.js';
+import { initializeGame, makeGuess, isGameOver } from './game.js';
 
 const rl = readline.createInterface({
   input: process.stdin,

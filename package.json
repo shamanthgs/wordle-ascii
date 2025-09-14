@@ -1,0 +1,16 @@
+{
+  "name": "wordle-ascii",
+  "version": "1.0.0",
+  "description": "ASCII Wordle game",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "bin": {
+    "wordle-ascii": "./index.js"
+  },
+  "keywords": ["wordle", "ascii", "terminal", "game"],
+  "author": "",
+  "license": "ISC"
+}

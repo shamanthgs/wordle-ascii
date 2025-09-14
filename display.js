@@ -114,7 +114,7 @@ function getLetterState(letter, game) {
   return 'unused';
 }
 
-module.exports = {
+export {
   displayGame,
   clearScreen
 };

@@ -76,7 +76,7 @@ function getGameStatus(game) {
   }
 }
 
-module.exports = {
+export {
   initializeGame,
   makeGuess,
   evaluateGuess,
