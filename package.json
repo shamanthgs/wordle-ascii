@@ -11,6 +11,6 @@
     "wordle-ascii": "./index.js"
   },
   "keywords": ["wordle", "ascii", "terminal", "game"],
-  "author": "",
+  "author": "shamanth.gs@gmail.com",
   "license": "ISC"
 }
