@@ -4,6 +4,9 @@ A command-line implementation of the popular word-guessing game Wordle, built wi
 
 **No external dependencies required** - uses only Node.js built-in modules.
 
+<img width="735" height="742" alt="image" src="https://github.com/user-attachments/assets/88e5fa35-ace5-473c-b25e-a9b8e078ae96" />
+
+
 ## Prerequisites
 
 - Node.js (version 12 or higher)
