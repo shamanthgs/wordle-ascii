@@ -2,7 +2,7 @@
 
 import readline from 'readline';
 import { displayGame, clearScreen } from './display.js';
-import { initializeGame, makeGuess, isGameOver, getRandomWordExcluding } from './game.js';
+import { initializeGame, makeGuess, isGameOver, getRandomWordExcluding, getGameStats } from './game.js';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -42,7 +42,13 @@ async function playGame(usedWords) {
   displayGame(game);
 
   if (game.won) {
+    const stats = getGameStats(game);
     console.log('\n🎉 Congratulations! You found the word!');
+    console.log('\n📊 Your Stats:');
+    console.log(`Word: ${stats.word}`);
+    console.log(`Attempts: ${stats.attempts}/6`);
+    console.log(`Time: ${stats.time}`);
+    console.log('\nShare your success! 🎯');
   } else {
     console.log(`\n💔 Game over! The word was: ${game.targetWord}`);
   }

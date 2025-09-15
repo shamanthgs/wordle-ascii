@@ -7,7 +7,8 @@ function initializeGame(targetWord) {
     results: [],
     currentGuess: 0,
     won: false,
-    lost: false
+    lost: false,
+    startTime: Date.now()
   };
 }
 
@@ -98,6 +99,27 @@ function getGameStatus(game) {
   }
 }
 
+function getElapsedTime(game) {
+  const elapsedMs = Date.now() - game.startTime;
+  const seconds = Math.floor(elapsedMs / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  if (minutes > 0) {
+    return `${minutes}m ${remainingSeconds}s`;
+  } else {
+    return `${remainingSeconds}s`;
+  }
+}
+
+function getGameStats(game) {
+  return {
+    word: game.targetWord,
+    attempts: game.currentGuess,
+    time: getElapsedTime(game)
+  };
+}
+
 export {
   initializeGame,
   makeGuess,
@@ -105,5 +127,6 @@ export {
   isGameOver,
   getGameStatus,
   getRandomWord,
-  getRandomWordExcluding
+  getRandomWordExcluding,
+  getGameStats
 };
