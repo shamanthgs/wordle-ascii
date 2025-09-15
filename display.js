@@ -11,13 +11,24 @@ function clearScreen() {
   console.clear();
 }
 
+function formatGameTime(game) {
+  const elapsedMs = Date.now() - game.startTime;
+  const totalSeconds = Math.floor(elapsedMs / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  const milliseconds = Math.floor((elapsedMs % 1000) / 10); // Show centiseconds instead of full milliseconds
+
+  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${milliseconds.toString().padStart(2, '0')}`;
+}
+
 function displayGame(game) {
   clearScreen();
   console.log('🎯 ASCII WORDLE');
   console.log('Guess the 5-letter word. You have 6 attempts.');
   console.log('Green = Correct letter, correct position');
   console.log('Yellow = Correct letter, wrong position');
-  console.log('Gray = Letter not in word\n');
+  console.log('Gray = Letter not in word');
+  console.log(`⏱️  Time: ${formatGameTime(game)}\n`);
 
   displayGameBoard(game);
   console.log('');
